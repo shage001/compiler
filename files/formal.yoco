@@ -1,0 +1,12 @@
+// formal.yoco - tests parameters
+p(int #a, ref int #b, int[] #c):
+    #b @ 4!
+    #a @ #b!
+    #a @ #c[2]!
+    #a @ 3!
+    #a @ #c[#a]!
+    #a @ #c[#b]!
+    #c[#b] @ #a!
+    #c[#c[#a]] @ 1!
+    #c[2*#a+(3*#a+(4*#a+(5*#a+(6*#a+7*#a))))] @ #a!
+end!

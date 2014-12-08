@@ -1,0 +1,1911 @@
+Terminals which are not used
+
+   YO
+   NO
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: globlist funlist
+
+    2 globlist: /* empty */
+    3         | globlist GLOBAL vardecl
+
+    4 vardecl: type decllist BANG
+
+    5 type: basictype
+    6     | basictype LBRACK sconst DOTDOT sconst RBRACK
+
+    7 basictype: INT
+    8          | YONO
+
+    9 sconst: CONST
+   10       | MINUS CONST
+
+   11 decllist: decl
+   12         | decllist COMMA decl
+
+   13 decl: HASH ID
+   14     | HASH ID ASSIGN expr
+
+   15 funlist: /* empty */
+   16        | funlist fundecl
+
+   17 fundecl: ID LPAREN params RPAREN COLON stmtlist END BANG
+   18        | basictype ID LPAREN params RPAREN COLON stmtlist END BANG
+
+   19 params: /* empty */
+   20       | paramlist
+
+   21 paramlist: param
+   22          | paramlist COMMA param
+
+   23 param: basictype HASH ID
+   24      | REF basictype HASH ID
+   25      | basictype LBRACK RBRACK HASH ID
+
+   26 stmtlist: /* empty */
+   27         | stmtlist stmt
+
+   28 stmt: vardecl
+   29     | assignment
+   30     | funcall BANG
+   31     | returnstmt
+   32     | ifstmt
+   33     | whilestmt
+
+   34 assignment: variable ASSIGN expr BANG
+
+   35 variable: HASH ID
+   36         | HASH ID LBRACK expr RBRACK
+
+   37 funcall: ID LPAREN RPAREN
+   38        | ID LPAREN exprlist RPAREN
+
+   39 returnstmt: RETWEET BANG
+   40           | RETWEET expr BANG
+
+   41 ifstmt: IF expr COLON stmtlist elsestmt END BANG
+
+   42 elsestmt: /* empty */
+   43         | ELSE IF expr COLON stmtlist elsestmt
+   44         | ELSE COLON stmtlist
+
+   45 whilestmt: WHILE expr COLON stmtlist END BANG
+
+   46 exprlist: expr
+   47         | exprlist COMMA expr
+
+   48 expr: logterm
+   49     | expr OR logterm
+
+   50 logterm: logfactor
+   51        | logterm AND logfactor
+
+   52 logfactor: relexpr
+   53          | NOT relexpr
+
+   54 relexpr: arithexpr
+   55        | arithexpr LT arithexpr
+   56        | arithexpr LE arithexpr
+   57        | arithexpr GT arithexpr
+   58        | arithexpr GE arithexpr
+   59        | arithexpr LIKE arithexpr
+   60        | arithexpr NOT LIKE arithexpr
+
+   61 arithexpr: term
+   62          | arithexpr PLUS term
+   63          | arithexpr MINUS term
+
+   64 term: factor
+   65     | term MULT factor
+   66     | term DIV factor
+   67     | term MOD factor
+
+   68 factor: MINUS factor
+   69       | variable
+   70       | funcall
+   71       | CONST
+   72       | LPAREN expr RPAREN
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ID (258) 13 14 17 18 23 24 25 35 36 37 38
+CONST (259) 9 10 71
+INT (260) 7
+YONO (261) 8
+GLOBAL (262) 3
+RETWEET (263) 39 40
+YO (264)
+NO (265)
+END (266) 17 18 41 45
+NOT (267) 53 60
+OR (268) 49
+AND (269) 51
+LIKE (270) 59 60
+REF (271) 24
+HASH (272) 13 14 23 24 25 35 36
+LT (273) 55
+LE (274) 56
+GT (275) 57
+GE (276) 58
+PLUS (277) 62
+MINUS (278) 10 63 68
+MULT (279) 65
+DIV (280) 66
+MOD (281) 67
+ASSIGN (282) 14 34
+COLON (283) 17 18 41 43 44 45
+BANG (284) 4 17 18 30 34 39 40 41 45
+LPAREN (285) 17 18 37 38 72
+RPAREN (286) 17 18 37 38 72
+LBRACK (287) 6 25 36
+RBRACK (288) 6 25 36
+DOTDOT (289) 6
+COMMA (290) 12 22 47
+IF (291) 41 43
+ELSE (292) 43 44
+WHILE (293) 45
+
+
+Nonterminals, with rules where they appear
+
+$accept (39)
+    on left: 0
+program (40)
+    on left: 1, on right: 0
+globlist (41)
+    on left: 2 3, on right: 1 3
+vardecl (42)
+    on left: 4, on right: 3 28
+type (43)
+    on left: 5 6, on right: 4
+basictype (44)
+    on left: 7 8, on right: 5 6 18 23 24 25
+sconst (45)
+    on left: 9 10, on right: 6
+decllist (46)
+    on left: 11 12, on right: 4 12
+decl (47)
+    on left: 13 14, on right: 11 12
+funlist (48)
+    on left: 15 16, on right: 1 16
+fundecl (49)
+    on left: 17 18, on right: 16
+params (50)
+    on left: 19 20, on right: 17 18
+paramlist (51)
+    on left: 21 22, on right: 20 22
+param (52)
+    on left: 23 24 25, on right: 21 22
+stmtlist (53)
+    on left: 26 27, on right: 17 18 27 41 43 44 45
+stmt (54)
+    on left: 28 29 30 31 32 33, on right: 27
+assignment (55)
+    on left: 34, on right: 29
+variable (56)
+    on left: 35 36, on right: 34 69
+funcall (57)
+    on left: 37 38, on right: 30 70
+returnstmt (58)
+    on left: 39 40, on right: 31
+ifstmt (59)
+    on left: 41, on right: 32
+elsestmt (60)
+    on left: 42 43 44, on right: 41 43
+whilestmt (61)
+    on left: 45, on right: 33
+exprlist (62)
+    on left: 46 47, on right: 38 47
+expr (63)
+    on left: 48 49, on right: 14 34 36 40 41 43 45 46 47 49 72
+logterm (64)
+    on left: 50 51, on right: 48 49 51
+logfactor (65)
+    on left: 52 53, on right: 50 51
+relexpr (66)
+    on left: 54 55 56 57 58 59 60, on right: 52 53
+arithexpr (67)
+    on left: 61 62 63, on right: 54 55 56 57 58 59 60 62 63
+term (68)
+    on left: 64 65 66 67, on right: 61 62 63 65 66 67
+factor (69)
+    on left: 68 69 70 71 72, on right: 64 65 66 67 68
+
+
+state 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (globlist)
+
+    program   go to state 1
+    globlist  go to state 2
+
+
+state 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+state 2
+
+    1 program: globlist . funlist
+    3 globlist: globlist . GLOBAL vardecl
+
+    GLOBAL  shift, and go to state 4
+
+    $default  reduce using rule 15 (funlist)
+
+    funlist  go to state 5
+
+
+state 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 4
+
+    3 globlist: globlist GLOBAL . vardecl
+
+    INT   shift, and go to state 6
+    YONO  shift, and go to state 7
+
+    vardecl    go to state 8
+    type       go to state 9
+    basictype  go to state 10
+
+
+state 5
+
+    1 program: globlist funlist .
+   16 funlist: funlist . fundecl
+
+    ID    shift, and go to state 11
+    INT   shift, and go to state 6
+    YONO  shift, and go to state 7
+
+    $default  reduce using rule 1 (program)
+
+    basictype  go to state 12
+    fundecl    go to state 13
+
+
+state 6
+
+    7 basictype: INT .
+
+    $default  reduce using rule 7 (basictype)
+
+
+state 7
+
+    8 basictype: YONO .
+
+    $default  reduce using rule 8 (basictype)
+
+
+state 8
+
+    3 globlist: globlist GLOBAL vardecl .
+
+    $default  reduce using rule 3 (globlist)
+
+
+state 9
+
+    4 vardecl: type . decllist BANG
+
+    HASH  shift, and go to state 14
+
+    decllist  go to state 15
+    decl      go to state 16
+
+
+state 10
+
+    5 type: basictype .
+    6     | basictype . LBRACK sconst DOTDOT sconst RBRACK
+
+    LBRACK  shift, and go to state 17
+
+    $default  reduce using rule 5 (type)
+
+
+state 11
+
+   17 fundecl: ID . LPAREN params RPAREN COLON stmtlist END BANG
+
+    LPAREN  shift, and go to state 18
+
+
+state 12
+
+   18 fundecl: basictype . ID LPAREN params RPAREN COLON stmtlist END BANG
+
+    ID  shift, and go to state 19
+
+
+state 13
+
+   16 funlist: funlist fundecl .
+
+    $default  reduce using rule 16 (funlist)
+
+
+state 14
+
+   13 decl: HASH . ID
+   14     | HASH . ID ASSIGN expr
+
+    ID  shift, and go to state 20
+
+
+state 15
+
+    4 vardecl: type decllist . BANG
+   12 decllist: decllist . COMMA decl
+
+    BANG   shift, and go to state 21
+    COMMA  shift, and go to state 22
+
+
+state 16
+
+   11 decllist: decl .
+
+    $default  reduce using rule 11 (decllist)
+
+
+state 17
+
+    6 type: basictype LBRACK . sconst DOTDOT sconst RBRACK
+
+    CONST  shift, and go to state 23
+    MINUS  shift, and go to state 24
+
+    sconst  go to state 25
+
+
+state 18
+
+   17 fundecl: ID LPAREN . params RPAREN COLON stmtlist END BANG
+
+    INT   shift, and go to state 6
+    YONO  shift, and go to state 7
+    REF   shift, and go to state 26
+
+    $default  reduce using rule 19 (params)
+
+    basictype  go to state 27
+    params     go to state 28
+    paramlist  go to state 29
+    param      go to state 30
+
+
+state 19
+
+   18 fundecl: basictype ID . LPAREN params RPAREN COLON stmtlist END BANG
+
+    LPAREN  shift, and go to state 31
+
+
+state 20
+
+   13 decl: HASH ID .
+   14     | HASH ID . ASSIGN expr
+
+    ASSIGN  shift, and go to state 32
+
+    $default  reduce using rule 13 (decl)
+
+
+state 21
+
+    4 vardecl: type decllist BANG .
+
+    $default  reduce using rule 4 (vardecl)
+
+
+state 22
+
+   12 decllist: decllist COMMA . decl
+
+    HASH  shift, and go to state 14
+
+    decl  go to state 33
+
+
+state 23
+
+    9 sconst: CONST .
+
+    $default  reduce using rule 9 (sconst)
+
+
+state 24
+
+   10 sconst: MINUS . CONST
+
+    CONST  shift, and go to state 34
+
+
+state 25
+
+    6 type: basictype LBRACK sconst . DOTDOT sconst RBRACK
+
+    DOTDOT  shift, and go to state 35
+
+
+state 26
+
+   24 param: REF . basictype HASH ID
+
+    INT   shift, and go to state 6
+    YONO  shift, and go to state 7
+
+    basictype  go to state 36
+
+
+state 27
+
+   23 param: basictype . HASH ID
+   25      | basictype . LBRACK RBRACK HASH ID
+
+    HASH    shift, and go to state 37
+    LBRACK  shift, and go to state 38
+
+
+state 28
+
+   17 fundecl: ID LPAREN params . RPAREN COLON stmtlist END BANG
+
+    RPAREN  shift, and go to state 39
+
+
+state 29
+
+   20 params: paramlist .
+   22 paramlist: paramlist . COMMA param
+
+    COMMA  shift, and go to state 40
+
+    $default  reduce using rule 20 (params)
+
+
+state 30
+
+   21 paramlist: param .
+
+    $default  reduce using rule 21 (paramlist)
+
+
+state 31
+
+   18 fundecl: basictype ID LPAREN . params RPAREN COLON stmtlist END BANG
+
+    INT   shift, and go to state 6
+    YONO  shift, and go to state 7
+    REF   shift, and go to state 26
+
+    $default  reduce using rule 19 (params)
+
+    basictype  go to state 27
+    params     go to state 41
+    paramlist  go to state 29
+    param      go to state 30
+
+
+state 32
+
+   14 decl: HASH ID ASSIGN . expr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 50
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 33
+
+   12 decllist: decllist COMMA decl .
+
+    $default  reduce using rule 12 (decllist)
+
+
+state 34
+
+   10 sconst: MINUS CONST .
+
+    $default  reduce using rule 10 (sconst)
+
+
+state 35
+
+    6 type: basictype LBRACK sconst DOTDOT . sconst RBRACK
+
+    CONST  shift, and go to state 23
+    MINUS  shift, and go to state 24
+
+    sconst  go to state 57
+
+
+state 36
+
+   24 param: REF basictype . HASH ID
+
+    HASH  shift, and go to state 58
+
+
+state 37
+
+   23 param: basictype HASH . ID
+
+    ID  shift, and go to state 59
+
+
+state 38
+
+   25 param: basictype LBRACK . RBRACK HASH ID
+
+    RBRACK  shift, and go to state 60
+
+
+state 39
+
+   17 fundecl: ID LPAREN params RPAREN . COLON stmtlist END BANG
+
+    COLON  shift, and go to state 61
+
+
+state 40
+
+   22 paramlist: paramlist COMMA . param
+
+    INT   shift, and go to state 6
+    YONO  shift, and go to state 7
+    REF   shift, and go to state 26
+
+    basictype  go to state 27
+    param      go to state 62
+
+
+state 41
+
+   18 fundecl: basictype ID LPAREN params . RPAREN COLON stmtlist END BANG
+
+    RPAREN  shift, and go to state 63
+
+
+state 42
+
+   37 funcall: ID . LPAREN RPAREN
+   38        | ID . LPAREN exprlist RPAREN
+
+    LPAREN  shift, and go to state 64
+
+
+state 43
+
+   71 factor: CONST .
+
+    $default  reduce using rule 71 (factor)
+
+
+state 44
+
+   53 logfactor: NOT . relexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    relexpr    go to state 65
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 45
+
+   35 variable: HASH . ID
+   36         | HASH . ID LBRACK expr RBRACK
+
+    ID  shift, and go to state 66
+
+
+state 46
+
+   68 factor: MINUS . factor
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable  go to state 48
+    funcall   go to state 49
+    factor    go to state 67
+
+
+state 47
+
+   72 factor: LPAREN . expr RPAREN
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 68
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 48
+
+   69 factor: variable .
+
+    $default  reduce using rule 69 (factor)
+
+
+state 49
+
+   70 factor: funcall .
+
+    $default  reduce using rule 70 (factor)
+
+
+state 50
+
+   14 decl: HASH ID ASSIGN expr .
+   49 expr: expr . OR logterm
+
+    OR  shift, and go to state 69
+
+    $default  reduce using rule 14 (decl)
+
+
+state 51
+
+   48 expr: logterm .
+   51 logterm: logterm . AND logfactor
+
+    AND  shift, and go to state 70
+
+    $default  reduce using rule 48 (expr)
+
+
+state 52
+
+   50 logterm: logfactor .
+
+    $default  reduce using rule 50 (logterm)
+
+
+state 53
+
+   52 logfactor: relexpr .
+
+    $default  reduce using rule 52 (logfactor)
+
+
+state 54
+
+   54 relexpr: arithexpr .
+   55        | arithexpr . LT arithexpr
+   56        | arithexpr . LE arithexpr
+   57        | arithexpr . GT arithexpr
+   58        | arithexpr . GE arithexpr
+   59        | arithexpr . LIKE arithexpr
+   60        | arithexpr . NOT LIKE arithexpr
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    NOT    shift, and go to state 71
+    LIKE   shift, and go to state 72
+    LT     shift, and go to state 73
+    LE     shift, and go to state 74
+    GT     shift, and go to state 75
+    GE     shift, and go to state 76
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 54 (relexpr)
+
+
+state 55
+
+   61 arithexpr: term .
+   65 term: term . MULT factor
+   66     | term . DIV factor
+   67     | term . MOD factor
+
+    MULT  shift, and go to state 79
+    DIV   shift, and go to state 80
+    MOD   shift, and go to state 81
+
+    $default  reduce using rule 61 (arithexpr)
+
+
+state 56
+
+   64 term: factor .
+
+    $default  reduce using rule 64 (term)
+
+
+state 57
+
+    6 type: basictype LBRACK sconst DOTDOT sconst . RBRACK
+
+    RBRACK  shift, and go to state 82
+
+
+state 58
+
+   24 param: REF basictype HASH . ID
+
+    ID  shift, and go to state 83
+
+
+state 59
+
+   23 param: basictype HASH ID .
+
+    $default  reduce using rule 23 (param)
+
+
+state 60
+
+   25 param: basictype LBRACK RBRACK . HASH ID
+
+    HASH  shift, and go to state 84
+
+
+state 61
+
+   17 fundecl: ID LPAREN params RPAREN COLON . stmtlist END BANG
+
+    $default  reduce using rule 26 (stmtlist)
+
+    stmtlist  go to state 85
+
+
+state 62
+
+   22 paramlist: paramlist COMMA param .
+
+    $default  reduce using rule 22 (paramlist)
+
+
+state 63
+
+   18 fundecl: basictype ID LPAREN params RPAREN . COLON stmtlist END BANG
+
+    COLON  shift, and go to state 86
+
+
+state 64
+
+   37 funcall: ID LPAREN . RPAREN
+   38        | ID LPAREN . exprlist RPAREN
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+    RPAREN  shift, and go to state 87
+
+    variable   go to state 48
+    funcall    go to state 49
+    exprlist   go to state 88
+    expr       go to state 89
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 65
+
+   53 logfactor: NOT relexpr .
+
+    $default  reduce using rule 53 (logfactor)
+
+
+state 66
+
+   35 variable: HASH ID .
+   36         | HASH ID . LBRACK expr RBRACK
+
+    LBRACK  shift, and go to state 90
+
+    $default  reduce using rule 35 (variable)
+
+
+state 67
+
+   68 factor: MINUS factor .
+
+    $default  reduce using rule 68 (factor)
+
+
+state 68
+
+   49 expr: expr . OR logterm
+   72 factor: LPAREN expr . RPAREN
+
+    OR      shift, and go to state 69
+    RPAREN  shift, and go to state 91
+
+
+state 69
+
+   49 expr: expr OR . logterm
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    logterm    go to state 92
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 70
+
+   51 logterm: logterm AND . logfactor
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    logfactor  go to state 93
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 71
+
+   60 relexpr: arithexpr NOT . LIKE arithexpr
+
+    LIKE  shift, and go to state 94
+
+
+state 72
+
+   59 relexpr: arithexpr LIKE . arithexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    arithexpr  go to state 95
+    term       go to state 55
+    factor     go to state 56
+
+
+state 73
+
+   55 relexpr: arithexpr LT . arithexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    arithexpr  go to state 96
+    term       go to state 55
+    factor     go to state 56
+
+
+state 74
+
+   56 relexpr: arithexpr LE . arithexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    arithexpr  go to state 97
+    term       go to state 55
+    factor     go to state 56
+
+
+state 75
+
+   57 relexpr: arithexpr GT . arithexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    arithexpr  go to state 98
+    term       go to state 55
+    factor     go to state 56
+
+
+state 76
+
+   58 relexpr: arithexpr GE . arithexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    arithexpr  go to state 99
+    term       go to state 55
+    factor     go to state 56
+
+
+state 77
+
+   62 arithexpr: arithexpr PLUS . term
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable  go to state 48
+    funcall   go to state 49
+    term      go to state 100
+    factor    go to state 56
+
+
+state 78
+
+   63 arithexpr: arithexpr MINUS . term
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable  go to state 48
+    funcall   go to state 49
+    term      go to state 101
+    factor    go to state 56
+
+
+state 79
+
+   65 term: term MULT . factor
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable  go to state 48
+    funcall   go to state 49
+    factor    go to state 102
+
+
+state 80
+
+   66 term: term DIV . factor
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable  go to state 48
+    funcall   go to state 49
+    factor    go to state 103
+
+
+state 81
+
+   67 term: term MOD . factor
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable  go to state 48
+    funcall   go to state 49
+    factor    go to state 104
+
+
+state 82
+
+    6 type: basictype LBRACK sconst DOTDOT sconst RBRACK .
+
+    $default  reduce using rule 6 (type)
+
+
+state 83
+
+   24 param: REF basictype HASH ID .
+
+    $default  reduce using rule 24 (param)
+
+
+state 84
+
+   25 param: basictype LBRACK RBRACK HASH . ID
+
+    ID  shift, and go to state 105
+
+
+state 85
+
+   17 fundecl: ID LPAREN params RPAREN COLON stmtlist . END BANG
+   27 stmtlist: stmtlist . stmt
+
+    ID       shift, and go to state 42
+    INT      shift, and go to state 6
+    YONO     shift, and go to state 7
+    RETWEET  shift, and go to state 106
+    END      shift, and go to state 107
+    HASH     shift, and go to state 45
+    IF       shift, and go to state 108
+    WHILE    shift, and go to state 109
+
+    vardecl     go to state 110
+    type        go to state 9
+    basictype   go to state 10
+    stmt        go to state 111
+    assignment  go to state 112
+    variable    go to state 113
+    funcall     go to state 114
+    returnstmt  go to state 115
+    ifstmt      go to state 116
+    whilestmt   go to state 117
+
+
+state 86
+
+   18 fundecl: basictype ID LPAREN params RPAREN COLON . stmtlist END BANG
+
+    $default  reduce using rule 26 (stmtlist)
+
+    stmtlist  go to state 118
+
+
+state 87
+
+   37 funcall: ID LPAREN RPAREN .
+
+    $default  reduce using rule 37 (funcall)
+
+
+state 88
+
+   38 funcall: ID LPAREN exprlist . RPAREN
+   47 exprlist: exprlist . COMMA expr
+
+    RPAREN  shift, and go to state 119
+    COMMA   shift, and go to state 120
+
+
+state 89
+
+   46 exprlist: expr .
+   49 expr: expr . OR logterm
+
+    OR  shift, and go to state 69
+
+    $default  reduce using rule 46 (exprlist)
+
+
+state 90
+
+   36 variable: HASH ID LBRACK . expr RBRACK
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 121
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 91
+
+   72 factor: LPAREN expr RPAREN .
+
+    $default  reduce using rule 72 (factor)
+
+
+state 92
+
+   49 expr: expr OR logterm .
+   51 logterm: logterm . AND logfactor
+
+    AND  shift, and go to state 70
+
+    $default  reduce using rule 49 (expr)
+
+
+state 93
+
+   51 logterm: logterm AND logfactor .
+
+    $default  reduce using rule 51 (logterm)
+
+
+state 94
+
+   60 relexpr: arithexpr NOT LIKE . arithexpr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    arithexpr  go to state 122
+    term       go to state 55
+    factor     go to state 56
+
+
+state 95
+
+   59 relexpr: arithexpr LIKE arithexpr .
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 59 (relexpr)
+
+
+state 96
+
+   55 relexpr: arithexpr LT arithexpr .
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 55 (relexpr)
+
+
+state 97
+
+   56 relexpr: arithexpr LE arithexpr .
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 56 (relexpr)
+
+
+state 98
+
+   57 relexpr: arithexpr GT arithexpr .
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 57 (relexpr)
+
+
+state 99
+
+   58 relexpr: arithexpr GE arithexpr .
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 58 (relexpr)
+
+
+state 100
+
+   62 arithexpr: arithexpr PLUS term .
+   65 term: term . MULT factor
+   66     | term . DIV factor
+   67     | term . MOD factor
+
+    MULT  shift, and go to state 79
+    DIV   shift, and go to state 80
+    MOD   shift, and go to state 81
+
+    $default  reduce using rule 62 (arithexpr)
+
+
+state 101
+
+   63 arithexpr: arithexpr MINUS term .
+   65 term: term . MULT factor
+   66     | term . DIV factor
+   67     | term . MOD factor
+
+    MULT  shift, and go to state 79
+    DIV   shift, and go to state 80
+    MOD   shift, and go to state 81
+
+    $default  reduce using rule 63 (arithexpr)
+
+
+state 102
+
+   65 term: term MULT factor .
+
+    $default  reduce using rule 65 (term)
+
+
+state 103
+
+   66 term: term DIV factor .
+
+    $default  reduce using rule 66 (term)
+
+
+state 104
+
+   67 term: term MOD factor .
+
+    $default  reduce using rule 67 (term)
+
+
+state 105
+
+   25 param: basictype LBRACK RBRACK HASH ID .
+
+    $default  reduce using rule 25 (param)
+
+
+state 106
+
+   39 returnstmt: RETWEET . BANG
+   40           | RETWEET . expr BANG
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    BANG    shift, and go to state 123
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 124
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 107
+
+   17 fundecl: ID LPAREN params RPAREN COLON stmtlist END . BANG
+
+    BANG  shift, and go to state 125
+
+
+state 108
+
+   41 ifstmt: IF . expr COLON stmtlist elsestmt END BANG
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 126
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 109
+
+   45 whilestmt: WHILE . expr COLON stmtlist END BANG
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 127
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 110
+
+   28 stmt: vardecl .
+
+    $default  reduce using rule 28 (stmt)
+
+
+state 111
+
+   27 stmtlist: stmtlist stmt .
+
+    $default  reduce using rule 27 (stmtlist)
+
+
+state 112
+
+   29 stmt: assignment .
+
+    $default  reduce using rule 29 (stmt)
+
+
+state 113
+
+   34 assignment: variable . ASSIGN expr BANG
+
+    ASSIGN  shift, and go to state 128
+
+
+state 114
+
+   30 stmt: funcall . BANG
+
+    BANG  shift, and go to state 129
+
+
+state 115
+
+   31 stmt: returnstmt .
+
+    $default  reduce using rule 31 (stmt)
+
+
+state 116
+
+   32 stmt: ifstmt .
+
+    $default  reduce using rule 32 (stmt)
+
+
+state 117
+
+   33 stmt: whilestmt .
+
+    $default  reduce using rule 33 (stmt)
+
+
+state 118
+
+   18 fundecl: basictype ID LPAREN params RPAREN COLON stmtlist . END BANG
+   27 stmtlist: stmtlist . stmt
+
+    ID       shift, and go to state 42
+    INT      shift, and go to state 6
+    YONO     shift, and go to state 7
+    RETWEET  shift, and go to state 106
+    END      shift, and go to state 130
+    HASH     shift, and go to state 45
+    IF       shift, and go to state 108
+    WHILE    shift, and go to state 109
+
+    vardecl     go to state 110
+    type        go to state 9
+    basictype   go to state 10
+    stmt        go to state 111
+    assignment  go to state 112
+    variable    go to state 113
+    funcall     go to state 114
+    returnstmt  go to state 115
+    ifstmt      go to state 116
+    whilestmt   go to state 117
+
+
+state 119
+
+   38 funcall: ID LPAREN exprlist RPAREN .
+
+    $default  reduce using rule 38 (funcall)
+
+
+state 120
+
+   47 exprlist: exprlist COMMA . expr
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 131
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 121
+
+   36 variable: HASH ID LBRACK expr . RBRACK
+   49 expr: expr . OR logterm
+
+    OR      shift, and go to state 69
+    RBRACK  shift, and go to state 132
+
+
+state 122
+
+   60 relexpr: arithexpr NOT LIKE arithexpr .
+   62 arithexpr: arithexpr . PLUS term
+   63          | arithexpr . MINUS term
+
+    PLUS   shift, and go to state 77
+    MINUS  shift, and go to state 78
+
+    $default  reduce using rule 60 (relexpr)
+
+
+state 123
+
+   39 returnstmt: RETWEET BANG .
+
+    $default  reduce using rule 39 (returnstmt)
+
+
+state 124
+
+   40 returnstmt: RETWEET expr . BANG
+   49 expr: expr . OR logterm
+
+    OR    shift, and go to state 69
+    BANG  shift, and go to state 133
+
+
+state 125
+
+   17 fundecl: ID LPAREN params RPAREN COLON stmtlist END BANG .
+
+    $default  reduce using rule 17 (fundecl)
+
+
+state 126
+
+   41 ifstmt: IF expr . COLON stmtlist elsestmt END BANG
+   49 expr: expr . OR logterm
+
+    OR     shift, and go to state 69
+    COLON  shift, and go to state 134
+
+
+state 127
+
+   45 whilestmt: WHILE expr . COLON stmtlist END BANG
+   49 expr: expr . OR logterm
+
+    OR     shift, and go to state 69
+    COLON  shift, and go to state 135
+
+
+state 128
+
+   34 assignment: variable ASSIGN . expr BANG
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 136
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 129
+
+   30 stmt: funcall BANG .
+
+    $default  reduce using rule 30 (stmt)
+
+
+state 130
+
+   18 fundecl: basictype ID LPAREN params RPAREN COLON stmtlist END . BANG
+
+    BANG  shift, and go to state 137
+
+
+state 131
+
+   47 exprlist: exprlist COMMA expr .
+   49 expr: expr . OR logterm
+
+    OR  shift, and go to state 69
+
+    $default  reduce using rule 47 (exprlist)
+
+
+state 132
+
+   36 variable: HASH ID LBRACK expr RBRACK .
+
+    $default  reduce using rule 36 (variable)
+
+
+state 133
+
+   40 returnstmt: RETWEET expr BANG .
+
+    $default  reduce using rule 40 (returnstmt)
+
+
+state 134
+
+   41 ifstmt: IF expr COLON . stmtlist elsestmt END BANG
+
+    $default  reduce using rule 26 (stmtlist)
+
+    stmtlist  go to state 138
+
+
+state 135
+
+   45 whilestmt: WHILE expr COLON . stmtlist END BANG
+
+    $default  reduce using rule 26 (stmtlist)
+
+    stmtlist  go to state 139
+
+
+state 136
+
+   34 assignment: variable ASSIGN expr . BANG
+   49 expr: expr . OR logterm
+
+    OR    shift, and go to state 69
+    BANG  shift, and go to state 140
+
+
+state 137
+
+   18 fundecl: basictype ID LPAREN params RPAREN COLON stmtlist END BANG .
+
+    $default  reduce using rule 18 (fundecl)
+
+
+state 138
+
+   27 stmtlist: stmtlist . stmt
+   41 ifstmt: IF expr COLON stmtlist . elsestmt END BANG
+
+    ID       shift, and go to state 42
+    INT      shift, and go to state 6
+    YONO     shift, and go to state 7
+    RETWEET  shift, and go to state 106
+    HASH     shift, and go to state 45
+    IF       shift, and go to state 108
+    ELSE     shift, and go to state 141
+    WHILE    shift, and go to state 109
+
+    $default  reduce using rule 42 (elsestmt)
+
+    vardecl     go to state 110
+    type        go to state 9
+    basictype   go to state 10
+    stmt        go to state 111
+    assignment  go to state 112
+    variable    go to state 113
+    funcall     go to state 114
+    returnstmt  go to state 115
+    ifstmt      go to state 116
+    elsestmt    go to state 142
+    whilestmt   go to state 117
+
+
+state 139
+
+   27 stmtlist: stmtlist . stmt
+   45 whilestmt: WHILE expr COLON stmtlist . END BANG
+
+    ID       shift, and go to state 42
+    INT      shift, and go to state 6
+    YONO     shift, and go to state 7
+    RETWEET  shift, and go to state 106
+    END      shift, and go to state 143
+    HASH     shift, and go to state 45
+    IF       shift, and go to state 108
+    WHILE    shift, and go to state 109
+
+    vardecl     go to state 110
+    type        go to state 9
+    basictype   go to state 10
+    stmt        go to state 111
+    assignment  go to state 112
+    variable    go to state 113
+    funcall     go to state 114
+    returnstmt  go to state 115
+    ifstmt      go to state 116
+    whilestmt   go to state 117
+
+
+state 140
+
+   34 assignment: variable ASSIGN expr BANG .
+
+    $default  reduce using rule 34 (assignment)
+
+
+state 141
+
+   43 elsestmt: ELSE . IF expr COLON stmtlist elsestmt
+   44         | ELSE . COLON stmtlist
+
+    COLON  shift, and go to state 144
+    IF     shift, and go to state 145
+
+
+state 142
+
+   41 ifstmt: IF expr COLON stmtlist elsestmt . END BANG
+
+    END  shift, and go to state 146
+
+
+state 143
+
+   45 whilestmt: WHILE expr COLON stmtlist END . BANG
+
+    BANG  shift, and go to state 147
+
+
+state 144
+
+   44 elsestmt: ELSE COLON . stmtlist
+
+    $default  reduce using rule 26 (stmtlist)
+
+    stmtlist  go to state 148
+
+
+state 145
+
+   43 elsestmt: ELSE IF . expr COLON stmtlist elsestmt
+
+    ID      shift, and go to state 42
+    CONST   shift, and go to state 43
+    NOT     shift, and go to state 44
+    HASH    shift, and go to state 45
+    MINUS   shift, and go to state 46
+    LPAREN  shift, and go to state 47
+
+    variable   go to state 48
+    funcall    go to state 49
+    expr       go to state 149
+    logterm    go to state 51
+    logfactor  go to state 52
+    relexpr    go to state 53
+    arithexpr  go to state 54
+    term       go to state 55
+    factor     go to state 56
+
+
+state 146
+
+   41 ifstmt: IF expr COLON stmtlist elsestmt END . BANG
+
+    BANG  shift, and go to state 150
+
+
+state 147
+
+   45 whilestmt: WHILE expr COLON stmtlist END BANG .
+
+    $default  reduce using rule 45 (whilestmt)
+
+
+state 148
+
+   27 stmtlist: stmtlist . stmt
+   44 elsestmt: ELSE COLON stmtlist .
+
+    ID       shift, and go to state 42
+    INT      shift, and go to state 6
+    YONO     shift, and go to state 7
+    RETWEET  shift, and go to state 106
+    HASH     shift, and go to state 45
+    IF       shift, and go to state 108
+    WHILE    shift, and go to state 109
+
+    $default  reduce using rule 44 (elsestmt)
+
+    vardecl     go to state 110
+    type        go to state 9
+    basictype   go to state 10
+    stmt        go to state 111
+    assignment  go to state 112
+    variable    go to state 113
+    funcall     go to state 114
+    returnstmt  go to state 115
+    ifstmt      go to state 116
+    whilestmt   go to state 117
+
+
+state 149
+
+   43 elsestmt: ELSE IF expr . COLON stmtlist elsestmt
+   49 expr: expr . OR logterm
+
+    OR     shift, and go to state 69
+    COLON  shift, and go to state 151
+
+
+state 150
+
+   41 ifstmt: IF expr COLON stmtlist elsestmt END BANG .
+
+    $default  reduce using rule 41 (ifstmt)
+
+
+state 151
+
+   43 elsestmt: ELSE IF expr COLON . stmtlist elsestmt
+
+    $default  reduce using rule 26 (stmtlist)
+
+    stmtlist  go to state 152
+
+
+state 152
+
+   27 stmtlist: stmtlist . stmt
+   43 elsestmt: ELSE IF expr COLON stmtlist . elsestmt
+
+    ID       shift, and go to state 42
+    INT      shift, and go to state 6
+    YONO     shift, and go to state 7
+    RETWEET  shift, and go to state 106
+    HASH     shift, and go to state 45
+    IF       shift, and go to state 108
+    ELSE     shift, and go to state 141
+    WHILE    shift, and go to state 109
+
+    $default  reduce using rule 42 (elsestmt)
+
+    vardecl     go to state 110
+    type        go to state 9
+    basictype   go to state 10
+    stmt        go to state 111
+    assignment  go to state 112
+    variable    go to state 113
+    funcall     go to state 114
+    returnstmt  go to state 115
+    ifstmt      go to state 116
+    elsestmt    go to state 153
+    whilestmt   go to state 117
+
+
+state 153
+
+   43 elsestmt: ELSE IF expr COLON stmtlist elsestmt .
+
+    $default  reduce using rule 43 (elsestmt)

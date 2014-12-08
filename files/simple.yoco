@@ -1,0 +1,16 @@
+YOCO():
+	int #a @ 1!
+	int #b @ 2!
+	int #c @ 3!
+	if (#a > #b):
+		if (#c > #a):
+			#c @ 100!
+		else:
+			#a @ 100!
+		end!
+	else:
+		#b @ 100!
+	end!
+	//#a @ 200!
+
+end!

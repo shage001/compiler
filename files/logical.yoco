@@ -1,0 +1,19 @@
+int logical(int #n):
+	yono #bool0 @ yo!
+	yono #bool1 @ no!
+	if not (#bool0 or #bool1):
+		#bool0 @ no!
+	else:
+		#n @ 100!
+		#n @ #n + 2!
+	end!
+	int #a @ 1!
+end!
+
+relational(int #n):
+	if (1 < 3):
+		#n @ 100!
+	else:
+		#n @ 200!
+	end!
+end!

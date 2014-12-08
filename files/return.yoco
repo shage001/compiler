@@ -1,0 +1,8 @@
+int sum(int #n):
+	retweet #n!
+end!
+
+void(int #n):
+	#n @ 100!
+	retweet!
+end!

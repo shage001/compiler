@@ -1,0 +1,13 @@
+// divspill.yoco   -  tests spilling and division
+YOCO():
+    int[2..9] #a!
+    int #b, #c!
+
+    #b @ 9!
+    #c @ 4!
+    #a[#b / #c + #b % #c] @ 1!
+    #a[#c] @ #a[#a[#b/#c] % 2*#a[(2+#b)/(3+#c)]]!
+    #a[#b] @ #c!
+    #c @ #a[#b] + (#a[#b] + (#a[#b] + (#a[#b] + (#a[#b] + (#a[#b] + 2*#b)))))!
+    #c @ #c!  // output should be 42
+end!

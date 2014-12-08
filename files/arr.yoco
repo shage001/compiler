@@ -1,0 +1,13 @@
+// arr.yoco - tests global array and variables
+global int[4..7] #a!
+global int #b, #c, #d, #e, #f!
+
+YOCO():
+    #b @ #c!
+    #b @ #a[4]!
+    #b @ #a[7]!
+    //#b @ #a[8]! // error
+    #b @ #a[#c]!
+    #b @ #a[#c] + (#a[#d] + (#a[#e] + #a[#f]))!
+    #a[#b] @ 2*#a[#c+1]!
+end!

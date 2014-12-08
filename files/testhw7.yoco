@@ -1,0 +1,20 @@
+// testhw7.yoco - tests code generation of expressions for hw 7
+global int[3..6] #globalarr!
+global int #globalvar!
+
+p(int #valparam, ref int #refparam, int[] #paramarr):
+    int #localvar!
+    int[5..10] #localarr!
+
+    #globalvar @ 1!
+    #localvar @ 2!
+    #valparam @ 3!
+    #refparam @ 4!
+    #globalarr[#valparam] @ 5!
+    #localarr[#valparam] @ 6!
+    #paramarr[2 * #valparam] @ 2*3 + 4*5!
+    #localarr[7] @ #refparam / #globalvar!
+end!
+
+YOCO():
+end!

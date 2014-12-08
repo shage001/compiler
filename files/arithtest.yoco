@@ -1,0 +1,14 @@
+// arithtest.yoco
+YOCO():
+    int #x!
+    int[4..7] #a!
+    int #b, #c!
+
+    #a[4] @ 3!
+    #b @ 6!
+    #a[#b] @ 5!
+    #c @ #a[#b-2] * #a[2*3]!
+    #b @ #c - 2!
+    #b @ 2 - #c!
+    #c @ #c! // should use eax, so find as return value
+end!

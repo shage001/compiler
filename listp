@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# simple script for listing files with line numbers
+#
+# usage: listp filename
+
+awk '{i += 1; print i " " $0}' < $1

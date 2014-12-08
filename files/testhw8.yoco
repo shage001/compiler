@@ -1,0 +1,15 @@
+// testhw8.yoco - tests code generation of control structures for hw 8
+// computes length of hailstone sequence
+
+int f(int #x):
+    int #count @ 0!
+    while #x > 1:
+        #count @ #count + 1!
+        if #x % 2 like 0:
+            #x @ #x / 2!
+        else:
+            #x @ 3 * #x + 1!
+        end!
+    end!
+    retweet #count!
+end!

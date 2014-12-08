@@ -1,0 +1,8 @@
+fun1():
+	int #a @ 1!
+end!
+
+YOCO():
+	fun1()!
+end!
+

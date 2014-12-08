@@ -1,0 +1,11 @@
+YOCO():
+	int #a @ 1!
+	while(#a > 0):
+		#a @ #a + 1!
+		while(#a < 10):
+			#a @ #a - 1!
+		end!
+		// #a @ 100!
+	end!
+	#a @ 100000!
+end!

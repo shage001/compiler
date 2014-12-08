@@ -1,0 +1,3 @@
+int test(int #a):
+	yono #b @ (#a > 5)!
+end!

@@ -1,0 +1,14 @@
+// divmod.yoco - tests division and modulo operations
+YOCO():
+    int #a, #b, #c!
+
+    #a @ #b / #c!
+    #a @ #b / 2!
+    #a @ 6 / 2!
+    #a @ 2*#b + (3*#c / #c)!
+    #a @ #b % #c!
+    #a @ 6 % #c!
+    #a @ #b % 2!
+    #a @ 6 % 2!
+    #a @ 2*#b + (3*#c % #c)!
+end!

@@ -1,0 +1,7 @@
+function():
+	int #a @ 1!
+end!
+
+YOCO(int #a):
+	#a @ 1!
+end!
